@@ -1,4 +1,22 @@
+//bibliotecas para ultilizar o wifi
+#include <WiFi.h>
+#include <WiFiClient.h>
 
+//biblioteca para criar servidor html
+#include <WebServer.h>
+#include <string.h>
+
+//cria uma instancia da biblioteca webServer passando a 
+//porta de funcionamento(80)
+webServer server(80);
+
+const char ssid = "wifi-vasco";
+const char password = "12345678";
+
+//definindo a configuração de rede
+IPAddress local-IP(192,168,0,100);
+IPAddress gateway(19,168,0,1);
+IPAddress subnet(255,255,255,0);
 
 //variaveis da porta do led
 const int led_v1 = 15;
@@ -13,6 +31,14 @@ float temp = 2;
 
 
 void setup() {
+  //configurando o Acess Point com o ESP
+  Serial.begin(115200);
+  Serial.print("configurando wifi...");
+  Serial.println(wifi.softAPConfig(local_IP, gateway, subnet)? "ok" : "erro na configuração" );
+  Serial.print("iniciando wifi....");
+  Serial.println(WiFi.softAP(ssid,password)? "ok": "erro na inicialização");
+  Serial.print("IP do AP");
+  Serial.println(WiFi.softAPIP());
 
   pinMode(led_v1, OUTPUT);//semaforo 1
   pinMode(led_a1, OUTPUT);//semaforo 1
@@ -21,7 +47,6 @@ void setup() {
   pinMode(led_v2, OUTPUT);//semaforo 2
   pinMode(led_a2, OUTPUT);//semaforo 2
   pinMode(led_vm2, OUTPUT);//semaforo 2
-  Serial.begin(115200);
 }
 
 void loop() {
