@@ -8,13 +8,13 @@
 
 //cria uma instancia da biblioteca webServer passando a 
 //porta de funcionamento(80)
-webServer server(80);
+WebServer server(80);
 
-const char ssid = "wifi-vasco";
-const char password = "12345678";
+const char *ssid = "wifi-vasco";
+const char *password = "12345678";
 
 //definindo a configuração de rede
-IPAddress local-IP(192,168,0,100);
+IPAddress local_IP(192,168,0,100);
 IPAddress gateway(19,168,0,1);
 IPAddress subnet(255,255,255,0);
 
@@ -34,7 +34,7 @@ void setup() {
   //configurando o Acess Point com o ESP
   Serial.begin(115200);
   Serial.print("configurando wifi...");
-  Serial.println(wifi.softAPConfig(local_IP, gateway, subnet)? "ok" : "erro na configuração" );
+  Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet)? "ok" : "erro na configuração" );
   Serial.print("iniciando wifi....");
   Serial.println(WiFi.softAP(ssid,password)? "ok": "erro na inicialização");
   Serial.print("IP do AP");
